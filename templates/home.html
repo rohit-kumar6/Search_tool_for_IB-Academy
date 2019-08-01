@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
+        <title> Search Facility </title>
+    </head>
+    <body>
+        <br /><br />
+        <div class="container" style="width:600px;">
+            <div class="row">
+                <div class="col-sm-12" >
+                    <br /><br />
+                    <label> <strong> Search </strong> </label> 
+                    <input type="text" name="query" id="query_input" class="form-control input-lg"  placeholder="Search for problems" />
+                    <div id="result_fetch"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!-- <script>
+            // 1. Get query & todo from form 
+            // 2. Sending the request
+            function add_todos(){
+                var username = $('#username_text'); // $('.someclass')
+                var todo = $('#todo_text');
+                var username_val = username.val();
+                var todo_val = todo.val();
+                console.log(username_val,todo_val)
+                $.ajax({
+                    url: '/add_todos',
+                    type: 'POST',
+                    data: {name:username_val,todo:todo_val}
+                })
+            }
+    </script> -->
+</html>
