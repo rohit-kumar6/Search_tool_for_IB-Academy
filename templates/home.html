@@ -20,26 +20,28 @@
                 <div class="col-sm-12" >
                     <br /><br />
                     <label> <strong> Search </strong> </label> 
-                    <input type="text" name="query" id="query_input" class="form-control input-lg"  placeholder="Search for problems" />
+                    <form>
+                        <input type="text" name="query" id="query_input" class="form-control input-lg"  placeholder="Search for problems" />
+                    </form>
+                    <!-- <input type="text" name="query" id="query_input" class="form-control input-lg"  placeholder="Search for problems" /> -->
                     <div id="result_fetch"></div>
                 </div>
             </div>
         </div>
     </body>
-    <!-- <script>
-            // 1. Get query & todo from form 
-            // 2. Sending the request
-            function add_todos(){
-                var username = $('#username_text'); // $('.someclass')
-                var todo = $('#todo_text');
-                var username_val = username.val();
-                var todo_val = todo.val();
-                console.log(username_val,todo_val)
+
+    <script>
+        $(document).ready(function(){
+            $('#query_input').keyup(function(){
+                var query = $('#query_input');
+                var query_val = query.val();
+                console.log(query_val);
                 $.ajax({
-                    url: '/add_todos',
+                    url: '/find',
                     type: 'POST',
-                    data: {name:username_val,todo:todo_val}
+                    data: {query:query_val},
                 })
-            }
-    </script> -->
+            });
+        });
+    </script> 
 </html>
