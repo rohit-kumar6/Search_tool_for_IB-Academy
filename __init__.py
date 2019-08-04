@@ -1,9 +1,7 @@
 import os
-import json
-from flask import jsonify
 from flask import Flask, escape, request, render_template, Response
 # from flask_mysqldb import MySQL
-from flask import redirect, url_for
+from flask import redirect, url_for, jsonify
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -24,17 +22,13 @@ def create_app(test_config=None):
     @app.route('/')
     @app.route('/home')
     def home():
-        return render_template('home.html')
+        return render_template('home.html')  
     
     @app.route('/find',methods=["POST"])
     def find():
-        query = request.form.get('query')
-        print("----------------")
-        print(query)
-        print("----------------")
-        return Response(status=200)
+        query = request.form.get('query')        
+        dummy_fetch_list = ["1st","2nd"]
+        return render_template('search.html', fetch_list = dummy_fetch_list )
 
-
-    # CURD
     return app
 

@@ -10,24 +10,39 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script> 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script> 
         <title> Search Facility </title>
     </head>
     <body>
         <br /><br />
-        <div class="container" style="width:600px;">
+        <div class="container">
             <div class="row">
                 <div class="col-sm-12" >
                     <br /><br />
-                    <label> <strong> Search </strong> </label> 
+                    <label> <strong> Search </strong> </label>
                     <form>
-                        <input type="text" name="query" id="query_input" class="form-control input-lg"  placeholder="Search for problems" />
+                        <input type="text" name="query" id="query_input" class="form-control" method="GET" action="notfound" placeholder="Search for problems" />
                     </form>
-                    <!-- <input type="text" name="query" id="query_input" class="form-control input-lg"  placeholder="Search for problems" /> -->
-                    <div id="result_fetch"></div>
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <br><br>
+            <div id="search_result" class="panel-group">
+                <div class="panel panel-default" style="margin-top: 0; border-radius: 0">
+                    <div class="panel-body" style="padding: 10px 15px;">
+                        <div>
+                            <a style="text-decoration:none" href="#">No result Found </a>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+
     </body>
 
     <script>
@@ -35,12 +50,18 @@
             $('#query_input').keyup(function(){
                 var query = $('#query_input');
                 var query_val = query.val();
-                console.log(query_val);
-                $.ajax({
+
+                req = $.ajax({
                     url: '/find',
                     type: 'POST',
                     data: {query:query_val},
-                })
+                });
+                
+                req.done(function(data){
+                    // $('#search_result').fadeOut().fadeIn();
+                    $('#search_result').html(data);
+                });
+
             });
         });
     </script> 

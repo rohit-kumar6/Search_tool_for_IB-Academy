@@ -1,0 +1,30 @@
+<div class="panel-group">
+    
+    {%for i in fetch_list%}   
+
+    <div class="panel panel-default" style="margin-top: 0; border-radius: 0">
+        <div class="panel-body" style="padding: 10px 15px;">
+            <div>
+                <a style="text-decoration:none" href="#"> {{i}} </a>
+                <span class="label label-success">Dummy Company</span>
+                <span class="glyphicon glyphicon-success glyphicon-ok pull-right" style= "color :green;line-height: inherit"></span>
+            </div>
+        </div>
+    </div>
+
+    {%endfor%}
+
+    <div class="panel panel-default" style="margin-top: 0; border-radius: 0">
+        <div class="panel-body" style="padding: 10px 15px;">
+            <div>
+                <a style="text-decoration:none" href="/problems/square-root-of-integer/">Square Root of Integer </a>
+                <span class="label label-danger">Search answer</span>
+                <span class="label label-success">Facebook</span>
+                <span class="label label-success">Amazon</span>
+                <span class="label label-success">Microsoft</span>
+                <span class="glyphicon glyphicon-info glyphicon-time pull-right" style="line-height: inherit"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
