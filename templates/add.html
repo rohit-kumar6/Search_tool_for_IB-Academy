@@ -5,10 +5,29 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12" >
-                <br /><br />
-                <label> <strong> Search </strong> </label>
+                <label> <strong> Add Data </strong> </label>
+                <br><br>
                 <form autocomplete="off">
-                    <input type="text" name="query" id="query_input" class="form-control" method="GET" action="notfound" placeholder="Search for problems" />
+                    <label>Question Name *</label><br>
+                    <input type="text" name="question_name" id="question_name" class="form-control" placeholder="Enter Question name"></input>
+                    <label>Question Tag *</label><br>
+                    <input type="text" name="question_tag" id="question_tag" class="form-control" placeholder="Enter Question tag like array,string"></input>
+                    <label>Question Content *</label><br>
+                    <input type="text" name="question_content" id="question_content" class="form-control" placeholder="Enter Question content"></input>
+                    <label>Company Name </label><br>
+                    <input type="text" name="company_name" id="company_name" class="form-control" placeholder="Enter Company in which this question asked it can be empty"></input>
+                    <label>Batch Id *</label><br>
+                    <input type="text" name="batch_id" id="batch_id" class="form-control" placeholder="Enter Batch Id, 1 for april 2 for may"></input>
+                    <label>Question Type *</label><br>
+                    <input type="text" name="question_type" id="question_type" class="form-control" placeholder="Enter Question Type, 1 for assignment 2 for homework"></input>
+                    <label>Week Number *</label><br>
+                    <input type="text" name="week_number" id="week_number" class="form-control" placeholder="Enter Week Number, 0 for Week 0"></input>
+                    <label>Question Topic *</label><br>
+                    <input type="text" name="question_topic" id="question_topic" class="form-control" placeholder="Enter Question Topic"></input>
+                    <label>Day Number *</label><br>
+                    <input type="text" name="day_number" id="day_number" class="form-control" placeholder="Enter Day Number, 10 for Day 10"></input>
+                    <br>
+                    <button onclick="add()" >Add</button>
                 </form>
             </div>
         </div>
@@ -18,6 +37,25 @@
 
 {% block script %} 
     <script>
+        function add(){
+            var question_name = $('#question_name').val();
+            var question_tag = $('#question_tag').val();
+            var question_content = $('#question_content').val();
+            var company_name = $('#company_name').val();
+            var batch_id = $('#batch_id').val();
+            var question_type = $('#question_type').val();
+            var week_number = $('#week_number').val();
+            var question_topic = $('#question_topic').val();
+            var day_number = $('#day_number').val();
 
+            $.ajax({
+                url: '/add_data',
+                type: 'POST',
+                data: {question_name:question_name, question_tag:question_tag, question_content:question_content, company_name:company_name, 
+                        batch_id:batch_id, question_type:question_type, week_number:week_number, question_topic:question_topic,
+                        day_number:day_number}
+            })
+        }
     </script>
+    
 {% endblock script%}
