@@ -16,6 +16,11 @@ def create_app(test_config=None):
     app.config['MYSQL_DB'] = 'ib'
     mysql = MySQL(app)
     
+    # """
+    # TO D0:
+    # CREATE INDEXING BEFORE FETCH
+    # """
+
     # MODEL
     def fetch_query(query):
         try:
