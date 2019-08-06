@@ -25,7 +25,9 @@ def create_app(test_config=None):
     def fetch_query(query):
         try:
             cur = mysql.connection.cursor()
-            sql = "SELECT question_name FROM question_table WHERE question_name like '%{}%' or question_content like '%{}%'".format(query,query)
+            sql="""
+                SELECT question_name,question_tag FROM question_table WHERE question_name like '%{}%' or question_content like '%{}%'
+                """.format(query,query)
             cur.execute(sql)
             fetch_data = cur.fetchall()#fetchone()
             cur.close()
@@ -36,12 +38,15 @@ def create_app(test_config=None):
     def insert_data(question_name,question_tag,question_content,company_name,batch_id,question_type,week_number,question_topic,day_number,question_status):
         insert_question_tabel(question_name,question_tag,question_content)
         q_id = get_question_id(question_name,question_content)
-        if(company_name != "") :
-            company_id =  get_company_id(company_name)
-            if(company_id == -1) : # if company is not registered
-                insert_company_tabel(company_name)
-                company_id = get_company_id(company_name)
-            insert_company_wise_question(q_id,company_id)
+        
+        for company in company_name.split(",") :
+            if(company != "") :
+                company_id =  get_company_id(company)
+                if(company_id == -1) : # if company is not registered
+                    insert_company_tabel(company)
+                    company_id = get_company_id(company)
+                insert_company_wise_question(q_id,company_id)
+
         insert_batch_wise_question(batch_id,q_id,question_type,week_number,question_topic,day_number)
         user_list = list_of_user_in_batch(batch_id)
         insert_user_wise_question(user_list,q_id)
