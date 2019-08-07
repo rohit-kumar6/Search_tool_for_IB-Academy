@@ -108,7 +108,7 @@ def create_app(test_config=None):
 
     
     # CONTROLLER
-    @app.route('/find',methods=["POST"])
+    @app.route('/find',methods=["POST","GET"])
     def find():
         query = request.form.get('query')
         fetch_list = fetch_query(query)  
