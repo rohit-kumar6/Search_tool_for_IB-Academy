@@ -17,14 +17,19 @@ global fetch_list
 def getdb():
     return mysql.connection.cursor()  # Always open connection
 
+def get_user_id():  # Always user 1 is login by default
+    return 1
+
 def fetch_query(query):
     cur = getdb()
-    sql= """ SELECT comb2.q_id,comb2.question_name,comb2.question_tag,comb2.company_name,comb1.question_status from
+    u_id = get_user_id()
+    sql= """ SELECT comb2.q_id,comb2.question_name,comb2.question_tag,GROUP_CONCAT(comb2.company_name ORDER BY comb2.company_name) as "company",comb1.question_status from
      (SELECT u2.q_id,u2.question_status FROM users_in_batches u1 JOIN user_wise_question u2 ON u1.user_id = u2.user_id 
-     WHERE u1.user_id = 1) comb1 JOIN (SELECT q1.q_id,q1.question_name,q1.question_tag,com.company_name FROM 
+     WHERE u1.user_id = {}) comb1 JOIN (SELECT q1.q_id,q1.question_name,q1.question_tag,com.company_name FROM 
      ((SELECT * FROM question_table WHERE 1) q1 LEFT JOIN (SELECT c1.q_id,c2.company_name FROM company_wise_question 
      c1 JOIN company_table c2 WHERE c1.company_id = c2.company_id) com ON q1.q_id = com.q_id) WHERE q1.question_name 
-     LIKE "%{}%" or q1.question_content Like "%{}%" or com.company_name like "%{}%") comb2 WHERE comb1.q_id = comb2.q_id""".format(query,query,query)
+     LIKE "%{}%" or q1.question_content Like "%{}%" or com.company_name like "%{}%") comb2 WHERE comb1.q_id = comb2.q_id
+     GROUP BY comb2.q_id""".format(u_id,query,query,query)
     cur.execute(sql)
     fetch_data = cur.fetchall()
     return fetch_data

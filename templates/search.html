@@ -7,7 +7,9 @@
                     <a style="text-decoration:none" href="#"> {{ques_name}} </a>
                     <span class="label label-danger">{{que_tag}}</span>
                     {% if( company_name) %}
-                    <span class="label label-success">{{company_name}}</span>
+                    {% for company_n in company_name.split(",") %}   
+                    <span class="label label-success">{{company_n}}</span>
+                    {%endfor%}
                     {% endif %}
                     {% if( question_status == 1) %}
                     <span class="glyphicon glyphicon-success glyphicon-ok pull-right" style= "color :green;line-height: inherit"></span>
