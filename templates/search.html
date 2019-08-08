@@ -1,13 +1,15 @@
 <div class="panel-group">
     {% if( fetch_list.__len__() != 0) %}
-        {% for q_id,ques_name,que_tag,company_name,question_status in fetch_list %}   
+        {% for q_id,ques_name,que_tag,company_name,question_status,_,_,_,_ in fetch_list %}   
         <div class="panel panel-default" style="margin-top: 0; border-radius: 0">
             <div class="panel-body" style="padding: 10px 15px;">
                 <div>
                     <a style="text-decoration:none" href="#"> {{ques_name}} </a>
                     <span class="label label-danger">{{que_tag}}</span>
                     {% if( company_name) %}
-                    <span class="label label-success">{{company_name}}</span>
+                    {% for company_n in company_name.split(",") %}   
+                    <span class="label label-success">{{company_n}}</span>
+                    {%endfor%}
                     {% endif %}
                     {% if( question_status == 1) %}
                     <span class="glyphicon glyphicon-success glyphicon-ok pull-right" style= "color :green;line-height: inherit"></span>

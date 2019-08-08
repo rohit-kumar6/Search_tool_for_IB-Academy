@@ -22,9 +22,9 @@
                     <div style="margin-right: 10px;">Questions</div>
                     <div>
                         <select id = "Questions" onchange="Questions_report(this.value)" style="width: 100%;" >
-                            <option value="All_question">All Questions</option>
-                            <option value="Assignment_question">Assignment Questions</option>
-                            <option value="Homework_question">Homework Questions</option>                        
+                            <option value="">All Questions</option>
+                            <option value=0>Assignment Questions</option>
+                            <option value=1>Homework Questions</option>                        
                         </select>
                     </div>
                 </div>
@@ -33,22 +33,22 @@
                     <div style="margin-right: 10px;">Tags</div>
                     <div>
                         <select id = "Tags" onchange="Tags_report(this.value)" style="width: 100%;" >
-                            <option value="All_tags">All Tags</option>
-                              <option value="Time_complexity">Time Complexity</option>
-                              <option value="Arrays">Arrays</option>
+                            <option value="">All Tags</option>
+                              <option value="Time Complexity">Time Complexity</option>
+                              <option value="Array">Array</option>
                               <option value="Math">Math</option>
-                              <option value="Binary_search">Binary Search</option>
-                              <option value="Strings">Strings</option>
-                              <option value="Bit_manipulation">Bit Manipulation</option>
-                              <option value="Two_pointers">Two Pointers</option>
-                              <option value="Linked_list">Linked List</option>
-                              <option value="Stacks">Stacks</option>
-                              <option value="Queues">Queues</option>
+                              <option value="Binary Search">Binary Search</option>
+                              <option value="String">String</option>
+                              <option value="Bit Manipulation">Bit Manipulation</option>
+                              <option value="Two Pointers">Two Pointers</option>
+                              <option value="Linked List">Linked List</option>
+                              <option value="Stack">Stack</option>
+                              <option value="Queue">Queue</option>
                               <option value="Backtracking">Backtracking</option>
                               <option value="Hashing">Hashing</option>
-                              <option value="Heaps_and_maps">Heaps And Maps</option>
+                              <option value="Heap And Map">Heap And Map</option>
                               <option value="Tree">Tree</option>
-                              <option value="Dynamic_programming">Dynamic Programming</option>
+                              <option value="Dynamic Programming">Dynamic Programming</option>
                               <option value="Greedy">Greedy</option>
                               <option value="Graph">Graph</option>
                         </select>
@@ -59,7 +59,8 @@
                     <div style="margin-right: 10px;">Topic</div>
                     <div>
                         <select id="Topic" onchange="Topic_report(this.value)" style="width: 100%;">
-                        <option value="All_topic">All Topic</option>
+                        <option value="">All Topic</option>
+                        <!-- <option value="All_topic">All Topic</option> -->
                         {% set list_topic = ["Array and Math","Basic Math","Basic Math Part II","How to hack your interview","Searching Algorithms","Searching II","Backtracking","Sorting algorithms","Sorting II"] %}
                         {% for topic in list_topic %}
                             <option value="{{topic}}">{{topic}}</option>
@@ -73,10 +74,10 @@
                     <div style="margin-right: 10px;">Week</div>
                     <div>
                       <select id ="Week" onchange="Week_report(this.value)" style="width: 100%;">
-                        <option value="All_week">All Week</option>
+                        <option value="">All Week</option>
                         {% set no_of_week = 17 %}
                         {% for week_no in range(1,no_of_week+1) %}
-                            <option value="Week_{{week_no}}">Week {{week_no}}</option>
+                            <option value="{{week_no}}">Week {{week_no}}</option>
                         {%endfor%}
                       </select>
                     </div>
@@ -86,10 +87,10 @@
                     <div style="margin-right: 10px;">Day</div>
                     <div>
                         <select id = "Day" onchange="Day_report(this.value)" style="width: 100%;">
-                            <option value="All_day">All Day</option>
+                            <option value="">All Day</option>
                             {% set no_of_day = 97 %}
                             {% for day in range(1,no_of_day+1) %}
-                                <option value="Day_{{day}}">Day {{day}}</option>
+                                <option value="{{day}}">Day {{day}}</option>
                             {%endfor%}
                         </select>
                     </div>
@@ -99,9 +100,9 @@
                     <div style="margin-right: 10px;">Status</div>
                     <div>
                         <select id="Status" style="width: 100%;" onchange="Status_report(this.value)" >
-                        <option value="All_status">All Status</option>
-                        <option value="Solved">Solved</option>
-                        <option value="Attempted">Attempted</option>
+                        <option value="">All Status</option>
+                        <option value=1>Solved</option>
+                        <option value=-1>Attempted</option>
                         </select>
                     </div>
                 </div>
@@ -133,7 +134,12 @@
                 clearTimeout(typingTimer)
                 // if($('#query_input').val())    Not checking empty as if empty we have to display no results
                 typingTimer = setTimeout(doneTyping, doneTypingInterval)
-                console.log($( "#Questions option:selected" ).text())
+                Questions = ($( "#Questions option:selected" ).val())
+                Tags = ($( "#Tags option:selected" ).val())
+                Topic = ($( "#Topic option:selected" ).val())
+                Week = ($( "#Week option:selected" ).val())
+                Day = ($( "#Day option:selected" ).val())
+                Status = ($( "#Status option:selected" ).val())
             });
             function doneTyping()
             {
@@ -141,7 +147,15 @@
                 req = $.ajax({
                     url: '/find',
                     type: 'POST',
-                    data: {query:query_val},
+                    data: {
+                        query:query_val,
+                        Questions:Questions,
+                        Tags:Tags,
+                        Topic:Topic,
+                        Week:Week,
+                        Day:Day,
+                        Status:Status
+                        },
                 });
 
                 req.done(function(data){
