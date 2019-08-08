@@ -34,23 +34,10 @@
                     <div>
                         <select id = "Tags" onchange="Tags_report(this.value)" style="width: 100%;" >
                             <option value="">All Tags</option>
-                              <option value="Time Complexity">Time Complexity</option>
-                              <option value="Array">Array</option>
-                              <option value="Math">Math</option>
-                              <option value="Binary Search">Binary Search</option>
-                              <option value="String">String</option>
-                              <option value="Bit Manipulation">Bit Manipulation</option>
-                              <option value="Two Pointers">Two Pointers</option>
-                              <option value="Linked List">Linked List</option>
-                              <option value="Stack">Stack</option>
-                              <option value="Queue">Queue</option>
-                              <option value="Backtracking">Backtracking</option>
-                              <option value="Hashing">Hashing</option>
-                              <option value="Heap And Map">Heap And Map</option>
-                              <option value="Tree">Tree</option>
-                              <option value="Dynamic Programming">Dynamic Programming</option>
-                              <option value="Greedy">Greedy</option>
-                              <option value="Graph">Graph</option>
+                            {% set list_tags = ["Time Complexity","Array","Math","Binary Search","String","Bit Manipulation","Linked List","Stack","Queue","Backtracking","Hashing","Heap And Map","Tree","Dynamic Programming","Greedy","Graph"] %}
+                            {% for tags in list_tags %}
+                                <option value="{{tags}}">{{tags}}</option>
+                            {%endfor%}
                         </select>
                     </div>
                 </div>

@@ -53,10 +53,7 @@ def find():
     Week = request.form['Week']
     Day = request.form['Day']
     Status = request.form['Status']
-    if query :
-        fetch_list = fetch_query(query,Questions,Tags,Topic,Week,Day,Status) 
-    else:
-        fetch_list = [] 
+    fetch_list = fetch_query(query,Questions,Tags,Topic,Week,Day,Status) 
     return render_template('search.html', fetch_list = fetch_list)
 
 @app.route('/add_data',methods=["POST"])
