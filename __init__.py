@@ -59,12 +59,6 @@ def find():
         fetch_list = [] 
     return render_template('search.html', fetch_list = fetch_list)
 
-@app.route('/filter',methods=["POST"])
-def filter():
-    clicked = request.form['question']
-    print("--------",clicked,fetch_list)
-    return Response(status=200)
-
 @app.route('/add_data',methods=["POST"])
 def add_data():
     question_name = request.form.get('question_name')

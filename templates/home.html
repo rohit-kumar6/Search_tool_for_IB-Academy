@@ -134,67 +134,45 @@
                 clearTimeout(typingTimer)
                 // if($('#query_input').val())    Not checking empty as if empty we have to display no results
                 typingTimer = setTimeout(doneTyping, doneTypingInterval)
-                Questions = ($( "#Questions option:selected" ).val())
-                Tags = ($( "#Tags option:selected" ).val())
-                Topic = ($( "#Topic option:selected" ).val())
-                Week = ($( "#Week option:selected" ).val())
-                Day = ($( "#Day option:selected" ).val())
-                Status = ($( "#Status option:selected" ).val())
             });
-            function doneTyping()
-            {
-                var query_val = $('#query_input').val();
-                req = $.ajax({
-                    url: '/find',
-                    type: 'POST',
-                    data: {
-                        query:query_val,
-                        Questions:Questions,
-                        Tags:Tags,
-                        Topic:Topic,
-                        Week:Week,
-                        Day:Day,
-                        Status:Status
-                        },
-                });
-
-                req.done(function(data){
-                    // $('#search_result').fadeOut().fadeIn();
-                    $('#search_result').html(data);
-                });
-            }
+            function doneTyping() {fter()}
         });
 
         function handleEnterKey(e){ 
             if(e.keyCode == 13){ // Enter pressed handeling to redirect
                 e.preventDefault ? e.preventDefault() : (e.returnValue = false);}}
+        
+        function Questions_report(filter) {fter()}
+        function Tags_report(filter) {fter()}
+        function Topic_report(filter) {fter()}
+        function Week_report(filter) {fter()}
+        function Day_report(filter) {fter()}
+        function Status_report(filter) {fter()}
 
-        function Questions_report(filter) {
-                console.log(filter)
-                req = $.ajax({
-                    url: '/filter',
-                    type: 'POST',
-                    data: {question:filter},
-                });
-                // req.done(function(data){
-                //     $('#search_result').html(data);
-                // });
-            }
-        function Tags_report(filter) {
-            console.log(filter)
+        function getdata(){
+            Questions = ($( "#Questions option:selected" ).val())
+            Tags = ($( "#Tags option:selected" ).val())
+            Topic = ($( "#Topic option:selected" ).val())
+            Week = ($( "#Week option:selected" ).val())
+            Day = ($( "#Day option:selected" ).val())
+            Status = ($( "#Status option:selected" ).val())
+            return (Questions,Tags,Topic,Week,Day,Status)
         }
-        function Topic_report(filter) {
-            console.log(filter)
+
+        function fter(){
+            Questions,Tags,Topic,Week,Day,Status = getdata()
+            var query_val = $('#query_input').val();
+            req = $.ajax({
+                url: '/find',
+                type: 'POST',
+                data: {query:query_val,Questions:Questions,Tags:Tags,Topic:Topic,Week:Week,Day:Day,Status:Status},
+            });
+            req.done(function(data){
+                // $('#search_result').fadeOut().fadeIn();
+                $('#search_result').html(data);
+            });
         }
-        function Week_report(filter) {
-            console.log(filter)
-        }
-        function Day_report(filter) {
-            console.log(filter)
-        }
-        function Status_report(filter) {
-            console.log(filter)
-        }
+
     </script>
 
 {% endblock script%}
