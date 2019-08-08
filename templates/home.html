@@ -17,11 +17,11 @@
     <div class="container">
             <br>
             <div style="display: inline-flex;">
-    
-                <div style="display:flex; margin-left:15px;">
-                    <div style="margin-right: 5px;">Questions</div>
+
+                <div style="display:flex; margin-left:30px;">
+                    <div style="margin-right: 10px;">Questions</div>
                     <div>
-                        <select id = "Questions" style="width: 100%;" >
+                        <select id = "Questions" onchange="Questions_report(this.value)" style="width: 100%;" >
                             <option value="All_question">All Questions</option>
                             <option value="Assignment_question">Assignment Questions</option>
                             <option value="Homework_question">Homework Questions</option>                        
@@ -29,10 +29,10 @@
                     </div>
                 </div>
     
-                <div style="display: flex; margin-left: 5px;">
-                    <div style="margin-right: 5px;">Tags</div>
+                <div style="display: flex; margin-left: 10px;">
+                    <div style="margin-right: 10px;">Tags</div>
                     <div>
-                        <select id = "Tags" style="width: 100%;" >
+                        <select id = "Tags" onchange="Tags_report(this.value)" style="width: 100%;" >
                             <option value="All_tags">All Tags</option>
                               <option value="Time_complexity">Time Complexity</option>
                               <option value="Arrays">Arrays</option>
@@ -48,23 +48,19 @@
                               <option value="Hashing">Hashing</option>
                               <option value="Heaps_and_maps">Heaps And Maps</option>
                               <option value="Tree">Tree</option>
-                              <option value="Dynamic">Dynamic</option>
+                              <option value="Dynamic_programming">Dynamic Programming</option>
                               <option value="Greedy">Greedy</option>
                               <option value="Graph">Graph</option>
                         </select>
                     </div>
                 </div>
     
-                <!-- Todo -->
-                <!-- Complete topic list -->
-    
                 <div style="display: flex;margin-left:10px;">
                     <div style="margin-right: 10px;">Topic</div>
                     <div>
-                        <select id="Topic" style="width: 100%;">
+                        <select id="Topic" onchange="Topic_report(this.value)" style="width: 100%;">
                         <option value="All_topic">All Topic</option>
-                        {% set list_topic = ["Array and Math","Basic Math","Basic Math Part II",
-                            "How to hack your interview","Searching Algorithms","Searching II","Backtracking","Sorting algorithms","Sorting II"] %}
+                        {% set list_topic = ["Array and Math","Basic Math","Basic Math Part II","How to hack your interview","Searching Algorithms","Searching II","Backtracking","Sorting algorithms","Sorting II"] %}
                         {% for topic in list_topic %}
                             <option value="{{topic}}">{{topic}}</option>
                         {%endfor%}
@@ -76,7 +72,7 @@
                 <div style="display: flex;margin-left:10px;">
                     <div style="margin-right: 10px;">Week</div>
                     <div>
-                      <select id ="Week" style="width: 100%;">
+                      <select id ="Week" onchange="Week_report(this.value)" style="width: 100%;">
                         <option value="All_week">All Week</option>
                         {% set no_of_week = 17 %}
                         {% for week_no in range(1,no_of_week+1) %}
@@ -89,7 +85,7 @@
                 <div style="display: flex;margin-left:10px;">
                     <div style="margin-right: 10px;">Day</div>
                     <div>
-                        <select id = "Day" style="width: 100%;">
+                        <select id = "Day" onchange="Day_report(this.value)" style="width: 100%;">
                             <option value="All_day">All Day</option>
                             {% set no_of_day = 97 %}
                             {% for day in range(1,no_of_day+1) %}
@@ -102,7 +98,7 @@
                 <div style="display: flex;margin-left:10px;">
                     <div style="margin-right: 10px;">Status</div>
                     <div>
-                        <select id="Status" style="width: 100%;">
+                        <select id="Status" style="width: 100%;" onchange="Status_report(this.value)" >
                         <option value="All_status">All Status</option>
                         <option value="Solved">Solved</option>
                         <option value="Attempted">Attempted</option>
@@ -111,12 +107,7 @@
                 </div>
     
             </div>
-    
-            <div style="display: inline-flex; margin: auto; align-items: center;">
-                <button style="margin-left: 10px;" type="button" class="btn btn-warning" onclick="filterReferrers()"> Apply </button>
-            </div>
         </div>
-
 
     <div class="container">
         <br><br>
@@ -140,14 +131,13 @@
             
             $('#query_input').keyup(function(){
                 clearTimeout(typingTimer)
-                if($('#query_input').val()){
-                    typingTimer = setTimeout(doneTyping, doneTypingInterval)
-                }
+                // if($('#query_input').val())    Not checking empty as if empty we have to display no results
+                typingTimer = setTimeout(doneTyping, doneTypingInterval)
+                console.log($( "#Questions option:selected" ).text())
             });
             function doneTyping()
             {
                 var query_val = $('#query_input').val();
-                console.log(query_val)
                 req = $.ajax({
                     url: '/find',
                     type: 'POST',
@@ -165,27 +155,32 @@
             if(e.keyCode == 13){ // Enter pressed handeling to redirect
                 e.preventDefault ? e.preventDefault() : (e.returnValue = false);}}
 
-        function filterReferrers() {
-            var Questions = document.getElementById("Questions");
-            var selected_Questions = Questions.options[Questions.selectedIndex].value;
-            var Tags = document.getElementById("Tags");
-            var selected_Tags = Tags.options[Tags.selectedIndex].value;
-            var Topic = document.getElementById("Topic");
-            var selected_Topic = Topic.options[Topic.selectedIndex].value;
-            var Week = document.getElementById("Week");
-            var selected_Week = Week.options[Week.selectedIndex].value;
-            var Day = document.getElementById("Day");
-            var selected_Day = Day.options[Day.selectedIndex].value;
-            var Status = document.getElementById("Status");
-            var selected_Status = Status.options[Status.selectedIndex].value;
-            // alert(selected_Questions)
-            // alert(selected_Tags)
-            // alert(selected_Topic)
-            // alert(selected_Week)
-            // alert(selected_Day)
-            // alert(selected_Status)
+        function Questions_report(filter) {
+                console.log(filter)
+                req = $.ajax({
+                    url: '/filter',
+                    type: 'POST',
+                    data: {question:filter},
+                });
+                // req.done(function(data){
+                //     $('#search_result').html(data);
+                // });
+            }
+        function Tags_report(filter) {
+            console.log(filter)
         }
-
+        function Topic_report(filter) {
+            console.log(filter)
+        }
+        function Week_report(filter) {
+            console.log(filter)
+        }
+        function Day_report(filter) {
+            console.log(filter)
+        }
+        function Status_report(filter) {
+            console.log(filter)
+        }
     </script>
 
 {% endblock script%}

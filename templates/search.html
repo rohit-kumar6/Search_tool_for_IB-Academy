@@ -1,6 +1,6 @@
 <div class="panel-group">
     {% if( fetch_list.__len__() != 0) %}
-        {%for ques_name,que_tag in fetch_list%}   
+        {%for q_id,ques_name,que_tag in fetch_list%}   
         {% set ques_status = -1 %}
         <div class="panel panel-default" style="margin-top: 0; border-radius: 0">
             <div class="panel-body" style="padding: 10px 15px;">
