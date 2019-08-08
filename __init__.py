@@ -19,7 +19,12 @@ def getdb():
 
 def fetch_query(query):
     cur = getdb()
-    sql="SELECT q_id,question_name,question_tag FROM question_table WHERE question_name like '%{}%' or question_content like '%{}%'".format(query,query)
+    sql= """ SELECT comb2.q_id,comb2.question_name,comb2.question_tag,comb2.company_name,comb1.question_status from
+     (SELECT u2.q_id,u2.question_status FROM users_in_batches u1 JOIN user_wise_question u2 ON u1.user_id = u2.user_id 
+     WHERE u1.user_id = 1) comb1 JOIN (SELECT q1.q_id,q1.question_name,q1.question_tag,com.company_name FROM 
+     ((SELECT * FROM question_table WHERE 1) q1 LEFT JOIN (SELECT c1.q_id,c2.company_name FROM company_wise_question 
+     c1 JOIN company_table c2 WHERE c1.company_id = c2.company_id) com ON q1.q_id = com.q_id) WHERE q1.question_name 
+     LIKE "%{}%" or q1.question_content Like "%{}%" or com.company_name like "%{}%") comb2 WHERE comb1.q_id = comb2.q_id""".format(query,query,query)
     cur.execute(sql)
     fetch_data = cur.fetchall()
     return fetch_data

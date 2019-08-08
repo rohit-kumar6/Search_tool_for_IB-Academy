@@ -1,16 +1,17 @@
 <div class="panel-group">
     {% if( fetch_list.__len__() != 0) %}
-        {%for q_id,ques_name,que_tag in fetch_list%}   
-        {% set ques_status = -1 %}
+        {% for q_id,ques_name,que_tag,company_name,question_status in fetch_list %}   
         <div class="panel panel-default" style="margin-top: 0; border-radius: 0">
             <div class="panel-body" style="padding: 10px 15px;">
                 <div>
                     <a style="text-decoration:none" href="#"> {{ques_name}} </a>
                     <span class="label label-danger">{{que_tag}}</span>
-                    <span class="label label-success">Company</span>
-                    {% if(ques_status == 1) %}
+                    {% if( company_name) %}
+                    <span class="label label-success">{{company_name}}</span>
+                    {% endif %}
+                    {% if( question_status == 1) %}
                     <span class="glyphicon glyphicon-success glyphicon-ok pull-right" style= "color :green;line-height: inherit"></span>
-                    {% elif(ques_status == -1) %}
+                    {% elif( question_status == -1) %}
                     <span class="glyphicon glyphicon-info glyphicon-time pull-right" style= "color :skyblue;line-height: inherit"></span>
                     {% endif %}
                 </div>
