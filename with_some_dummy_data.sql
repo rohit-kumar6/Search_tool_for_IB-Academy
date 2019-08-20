@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2019 at 09:11 PM
+-- Generation Time: Aug 20, 2019 at 08:17 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -57,7 +57,15 @@ INSERT INTO `batch_wise_question` (`id`, `batch_id`, `q_id`, `question_type`, `W
 (12, 1, 12, 0x30, 2, '2 Pointers & Bit Manipulation', 9),
 (13, 1, 13, 0x30, 2, '2 Pointers & Bit Manipulation', 9),
 (14, 1, 14, 0x31, 2, '2 Pointers & Bit Manipulation', 9),
-(15, 1, 15, 0x31, 2, '2 Pointers & Bit Manipulation', 9);
+(15, 1, 15, 0x31, 2, '2 Pointers & Bit Manipulation', 9),
+(16, 1, 16, 0x30, 3, 'Searching Algorithms', 11),
+(17, 2, 17, 0x30, 2, 'Searching Algorithms', 11),
+(18, 2, 18, 0x30, 3, 'Searching Algorithms', 11),
+(19, 1, 19, 0x30, 3, 'Searching Algorithms', 11),
+(20, 1, 20, 0x31, 3, 'Backtracking', 13),
+(21, 1, 21, 0x31, 3, 'Backtracking', 13),
+(22, 1, 22, 0x31, 3, 'Backtracking', 13),
+(23, 1, 23, 0x30, 3, 'Backtracking', 13);
 
 -- --------------------------------------------------------
 
@@ -108,9 +116,12 @@ INSERT INTO `company_wise_question` (`id`, `company_id`, `q_id`) VALUES
 (6, 6, 12),
 (7, 4, 13),
 (8, 7, 14),
-(9, 7, 14),
+(9, 5, 14),
 (10, 1, 15),
-(11, 6, 15);
+(11, 6, 15),
+(12, 1, 16),
+(13, 2, 18),
+(14, 3, 19);
 
 -- --------------------------------------------------------
 
@@ -122,7 +133,7 @@ CREATE TABLE `question_table` (
   `q_id` int(10) UNSIGNED NOT NULL,
   `question_name` varchar(250) NOT NULL,
   `question_tag` varchar(30) DEFAULT NULL,
-  `question_content` varchar(2000) DEFAULT NULL
+  `question_content` varchar(1000) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -144,7 +155,15 @@ INSERT INTO `question_table` (`q_id`, `question_name`, `question_tag`, `question
 (12, 'Min XOR value', 'Two Pointers', 'Given an array of N integers, find the pair of integers in the array which have minimum XOR value. Report the minimum XOR value.'),
 (13, 'Single Number II', 'Hashing', 'Given an array of integers, every element appears thrice except for one which occurs once.  Find that element which does not appear thrice. '),
 (14, 'Find sub-array with the given sum', 'Two Pointers', 'Given an array of positive integers A and an integer B, find and return first continuous subarray which adds to B. If the answer does not exist return an array with a single element \"-1\"'),
-(15, 'Find the closest pair from two sorted arrays', 'Two Pointers', 'Given two sorted arrays of distinct integers, A and B, and an integer C, find and return the pair whose sum is closest to C and the pair has one element from each array. More formally, find A[i] and B[j] such that abs((A[i] + B[j]) - C) has minimum value. If there are multiple solutions find the one with minimum i and even if there are multiple values of j for the same i then return the one with minimum j.');
+(15, 'Find the closest pair from two sorted arrays', 'Two Pointers', 'Given two sorted arrays of distinct integers, A and B, and an integer C, find and return the pair whose sum is closest to C and the pair has one element from each array. More formally, find A[i] and B[j] such that abs((A[i] + B[j]) - C) has minimum value. If there are multiple solutions find the one with minimum i and even if there are multiple values of j for the same i then return the one with minimum j.'),
+(16, 'Find a peak element', 'Binary Search', 'Given an array of integers A, find and return the peak element in it. An array element is peak if it is NOT smaller than its neighbors. For corner elements, we need to consider only one neighbor.'),
+(17, 'Single Element in a Sorted Array', 'Binary Search', 'Given a sorted array of integers A where every element appears twice except for one element which appears once, find and return this single element that appears only once.'),
+(18, 'Matrix Median', 'Binary Search', 'Given a N cross M matrix in which each row is sorted, find the overall median of the matrix. Assume N*M is odd.'),
+(19, 'Rotated Sorted Array Search', 'Binary Search', 'Suppose a sorted array is rotated at some pivot unknown to you beforehand. (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2 ). You are given a target value to search. If found in the array, return its index, otherwise return -1. You may assume no duplicate exists in the array.'),
+(20, 'Kth Permutation Sequence', 'Backtracking', 'Given n and k, return the kth permutation sequence. '),
+(21, 'Palindrome Partitioning', 'Backtracking', 'Given a string s, partition s such that every string of the partition is a palindrome. Return all possible palindrome partitioning of s.'),
+(22, 'Number of Squareful Arrays', 'Backtracking', 'Given an array of integers A, the array is squareful if for every pair of adjacent elements, their sum is a perfect square. Find and return the number of permutations of A that are squareful. Two permutations A1 and A2 differ if and only if there is some index i such that A1[ i ] != A2[ i ].'),
+(23, 'Combination Sum II', 'Backtracking', 'Given a collection of intervals, merge all overlapping intervals.');
 
 -- --------------------------------------------------------
 
@@ -214,7 +233,23 @@ INSERT INTO `user_wise_question` (`id`, `user_id`, `q_id`, `question_status`) VA
 (27, 1, 14, 0),
 (28, 2, 14, 0),
 (29, 1, 15, 0),
-(30, 2, 15, 0);
+(30, 2, 15, 0),
+(31, 1, 16, 0),
+(32, 2, 16, 0),
+(33, 3, 17, 0),
+(34, 4, 17, 0),
+(35, 3, 18, 0),
+(36, 4, 18, 0),
+(37, 1, 19, 0),
+(38, 2, 19, 0),
+(39, 1, 20, 0),
+(40, 2, 20, 0),
+(41, 1, 21, 0),
+(42, 2, 21, 0),
+(43, 1, 22, 0),
+(44, 2, 22, 0),
+(45, 1, 23, 0),
+(46, 2, 23, 0);
 
 --
 -- Indexes for dumped tables
@@ -225,13 +260,19 @@ INSERT INTO `user_wise_question` (`id`, `user_id`, `q_id`, `question_status`) VA
 --
 ALTER TABLE `batch_wise_question`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `q_id` (`q_id`);
+  ADD KEY `q_id` (`q_id`),
+  ADD KEY `b_id` (`batch_id`),
+  ADD KEY `da` (`day_number`),
+  ADD KEY `q_t` (`question_topic`),
+  ADD KEY `q_ty` (`question_type`),
+  ADD KEY `wk` (`Week_number`);
 
 --
 -- Indexes for table `company_table`
 --
 ALTER TABLE `company_table`
-  ADD PRIMARY KEY (`company_id`);
+  ADD PRIMARY KEY (`company_id`),
+  ADD KEY `c_n` (`company_name`);
 
 --
 -- Indexes for table `company_wise_question`
@@ -247,13 +288,15 @@ ALTER TABLE `company_wise_question`
 ALTER TABLE `question_table`
   ADD PRIMARY KEY (`q_id`),
   ADD KEY `q_name` (`question_name`),
-  ADD KEY `q_tag` (`question_tag`);
+  ADD KEY `q_tag` (`question_tag`),
+  ADD KEY `q_c` (`question_content`);
 
 --
 -- Indexes for table `users_in_batches`
 --
 ALTER TABLE `users_in_batches`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `b_id` (`batch_id`);
 
 --
 -- Indexes for table `user_wise_question`
@@ -261,7 +304,8 @@ ALTER TABLE `users_in_batches`
 ALTER TABLE `user_wise_question`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `q_id` (`q_id`);
+  ADD KEY `q_id` (`q_id`),
+  ADD KEY `q_s` (`question_status`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -271,7 +315,7 @@ ALTER TABLE `user_wise_question`
 -- AUTO_INCREMENT for table `batch_wise_question`
 --
 ALTER TABLE `batch_wise_question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `company_table`
@@ -283,13 +327,13 @@ ALTER TABLE `company_table`
 -- AUTO_INCREMENT for table `company_wise_question`
 --
 ALTER TABLE `company_wise_question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `question_table`
 --
 ALTER TABLE `question_table`
-  MODIFY `q_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `q_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `users_in_batches`
@@ -301,7 +345,7 @@ ALTER TABLE `users_in_batches`
 -- AUTO_INCREMENT for table `user_wise_question`
 --
 ALTER TABLE `user_wise_question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

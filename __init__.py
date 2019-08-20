@@ -46,7 +46,7 @@ def fetch_query(query,Questions,Tags,Topic,Week,Day,Status):
 @app.route('/find',methods=["POST"])
 def find():
     global fetch_list
-    query = request.form['query']
+    query = request.form['query'].strip()
     Questions = request.form['Questions']
     Tags = request.form['Tags']
     Topic = request.form['Topic']
