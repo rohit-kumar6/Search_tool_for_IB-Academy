@@ -5,9 +5,9 @@ from flask import redirect, url_for, jsonify
 from .model.model_add import *
 
 app = Flask(__name__)
-app.config['MYSQL_HOST'] = '127.0.0.1'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_HOST'] = 'search-tool-db.csvs6nukrxvo.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = 'test1234'
 app.config['MYSQL_DB'] = 'ib'
 mysql = MySQL(app)
 global fetch_list 
